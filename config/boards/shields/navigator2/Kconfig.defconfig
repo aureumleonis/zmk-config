@@ -1,0 +1,13 @@
+if SHIELD_NAVIGATOR2_LEFT
+
+config ZMK_KEYBOARD_NAME
+  default "navigator2l"
+
+endif
+
+if SHIELD_NAVIGATOR2_RIGHT
+
+config ZMK_KEYBOARD_NAME
+  default "navigator2r"
+
+endif
