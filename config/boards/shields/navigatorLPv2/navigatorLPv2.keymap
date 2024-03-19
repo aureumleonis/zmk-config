@@ -1,0 +1,64 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/outputs.h>
+
+#define DEFAULT_LAYER 0
+#define FN_L 1
+#define HW_L 2
+
+
+&lt {
+    tapping_term_ms = <150>;
+    quick_tap_ms = <300>;
+    flavor = "balanced";
+};
+
+&mt {
+    flavor = "tap-preferred";
+};
+
+/ {
+    behaviors {
+        th_hold: hold_preferred_mods {
+            compatible = "zmk,behavior-hold-tap";
+            label = "hOLD_MODS";
+            #binding-cells = <2>;
+            tapping_term_ms = <300>;
+            flavor = "hold-preferred";
+            bindings = <&kp>, <&kp>;
+            quick_tap_ms = <500>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            bindings = <
+    &kp GRAVE  &kp N1  &kp N2  &kp N3  &kp N4  &kp N5  &kp ENTER      &th_hold LGUI UP       &th_hold RGUI PG_UP   &kp N6  &kp N7        &kp N8  &kp N9     &kp N0   &kp MINUS  &kp EQUAL
+    &kp TAB    &kp Q   &kp W   &kp E   &kp R   &kp T   &kp LBKT       &th_hold LALT RIGHT    &th_hold RALT HOME    &kp Y   &kp RBKT      &kp U   &kp I      &kp O    &kp P      &kp BSLH
+    &kp ESC    &kp A   &kp S   &kp D   &kp F   &kp G   &kp SPACE      &th_hold LSHFT LEFT    &th_hold RSHFT END    &kp H   &kp SPACE     &kp J   &kp K      &kp L    &kp SEMI   &kp SQT
+    &none      &kp Z   &kp X   &kp C   &kp V   &kp B   &lt FN_L BSPC  &th_hold LCTRL DOWN    &th_hold RCTRL PG_DN  &kp N   &lt FN_L DEL  &kp M   &kp COMMA  &kp DOT  &kp FSLH   &none
+            >;
+        };
+
+        fn_layer {
+            bindings = <
+    &none      &kp F1      &kp F2    &kp F3      &kp F4      &kp F5      &kp INS   &trans    &trans  &kp F6    &kp F7     &kp F8    &kp F9     &kp F10  &kp F11   &kp F12
+    &none      &none       &none     &none       &none       &none       &trans    &trans    &trans  &trans    &none      &none     &kp PG_UP  &none    &none     &none
+    &kp ENTER  &kp C_PREV  &kp C_PP  &kp C_STOP  &kp C_NEXT  &none       &mo HW_L  &trans    &trans  &mo HW_L  &none      &kp HOME  &kp PG_DN  &kp END  &none     &trans
+    &none      &none       &none     &none       &none       &kp K_APP   &none     &trans    &trans  &trans    &kp K_APP  &none     &none      &none    &none     &none
+            >;
+        };
+
+        hw_layer {
+            bindings = <
+    &bootloader  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &trans  &trans  &bt BT_CLR    &trans    &trans  &bt BT_CLR    &trans  &trans  &trans  &trans  &trans  &bootloader
+    &reset       &trans        &trans        &trans        &trans  &trans  &out OUT_TOG  &trans    &trans  &out OUT_TOG  &trans  &trans  &trans  &trans  &trans  &reset
+    &kp ESC      &trans        &trans        &trans        &trans  &trans  &trans        &trans    &trans  &trans        &trans  &trans  &trans  &trans  &trans  &none
+    &none        &trans        &trans        &trans        &trans  &trans  &trans        &trans    &trans  &trans        &trans  &trans  &trans  &trans  &trans  &trans
+            >;
+        };
+    };
+};

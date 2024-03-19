@@ -1,0 +1,5 @@
+config SHIELD_NAVIGATORLPV2_LEFT
+    def_bool $(shields_list_contains,navigatorLPv2_left)
+
+config SHIELD_NAVIGATORLPV2_RIGHT
+    def_bool $(shields_list_contains,navigatorLPv2_right)
