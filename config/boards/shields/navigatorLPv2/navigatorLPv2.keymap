@@ -5,7 +5,10 @@
 
 #define DEFAULT_LAYER 0
 #define FN_L 1
-#define HW_L 2
+#define MOD_LAYER_L 2
+#define MOD_LAYER_R 3
+#define MOD_LAYER_B 4
+#define HW_L 5
 
 
 &lt {
@@ -19,14 +22,60 @@
 };
 
 / {
+    macros {
+        mod_liftl: mod_liftl_macro {
+            compatible = "zmk,behavior-macro-one-param";
+            label = "MOD_EXCUSIVE_LAYER_L";
+            #binding-cells = <1>;
+            wait-ms = <0>;
+            bindings
+                = <&macro_press &mo MOD_LAYER_L>
+                , <&macro_param_1to1 &macro_press &kp MACRO_PLACEHOLDER>
+                , <&macro_pause_for_release>
+                , <&macro_param_1to1 &macro_release &kp MACRO_PLACEHOLDER>
+                , <&macro_release &mo MOD_LAYER_L>;
+        };
+
+        mod_liftr: mod_liftr_macro {
+            compatible = "zmk,behavior-macro-one-param";
+            label = "MOD_EXCUSIVE_LAYER_R";
+            #binding-cells = <1>;
+            wait-ms = <0>;
+            bindings
+                = <&macro_press &mo MOD_LAYER_R>
+                , <&macro_param_1to1 &macro_press &kp MACRO_PLACEHOLDER>
+                , <&macro_pause_for_release>
+                , <&macro_param_1to1 &macro_release &kp MACRO_PLACEHOLDER>
+                , <&macro_release &mo MOD_LAYER_R>;
+        };
+    };
+    
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+        tri_layer {
+            if-layers = <2 3>;
+            then-layer = <4>;
+        };
+    };
+
     behaviors {
-        th_hold: hold_preferred_mods {
+        th_liftl: th_liftl_taphold {
             compatible = "zmk,behavior-hold-tap";
-            label = "hOLD_MODS";
+            label = "LIFT_MOD_L";
             #binding-cells = <2>;
             tapping_term_ms = <300>;
             flavor = "hold-preferred";
-            bindings = <&kp>, <&kp>;
+            bindings = <&mod_liftl>, <&kp>;
+            quick_tap_ms = <500>;
+        };
+
+        th_liftr: th_liftr_taphold {
+            compatible = "zmk,behavior-hold-tap";
+            label = "LIFT_MOD_R";
+            #binding-cells = <2>;
+            tapping_term_ms = <300>;
+            flavor = "hold-preferred";
+            bindings = <&mod_liftr>, <&kp>;
             quick_tap_ms = <500>;
         };
     };
@@ -36,10 +85,10 @@
 
         default_layer {
             bindings = <
-    &kp GRAVE  &kp N1  &kp N2  &kp N3  &kp N4  &kp N5  &kp ENTER      &th_hold LGUI UP       &th_hold RGUI PG_UP   &kp N6  &kp N7        &kp N8  &kp N9     &kp N0   &kp MINUS  &kp EQUAL
-    &kp TAB    &kp Q   &kp W   &kp E   &kp R   &kp T   &kp LBKT       &th_hold LALT RIGHT    &th_hold RALT HOME    &kp Y   &kp RBKT      &kp U   &kp I      &kp O    &kp P      &kp BSLH
-    &kp ESC    &kp A   &kp S   &kp D   &kp F   &kp G   &kp SPACE      &th_hold LSHFT LEFT    &th_hold RSHFT END    &kp H   &kp SPACE     &kp J   &kp K      &kp L    &kp SEMI   &kp SQT
-    &none      &kp Z   &kp X   &kp C   &kp V   &kp B   &lt FN_L BSPC  &th_hold LCTRL DOWN    &th_hold RCTRL PG_DN  &kp N   &lt FN_L DEL  &kp M   &kp COMMA  &kp DOT  &kp FSLH   &none
+    &kp GRAVE  &kp N1  &kp N2  &kp N3  &kp N4  &kp N5  &kp ENTER      &th_liftl LGUI UP       &th_liftr RGUI PG_UP   &kp N6        &kp N7  &kp N8  &kp N9     &kp N0   &kp MINUS  &kp EQUAL
+    &kp TAB    &kp Q   &kp W   &kp E   &kp R   &kp T   &kp LBKT       &th_liftl LALT RIGHT    &th_liftr RALT HOME    &kp RBKT      &kp Y   &kp U   &kp I      &kp O    &kp P      &kp BSLH
+    &kp ESC    &kp A   &kp S   &kp D   &kp F   &kp G   &kp SPACE      &th_liftl LSHFT LEFT    &th_liftr RSHFT END    &kp SPACE     &kp H   &kp J   &kp K      &kp L    &kp SEMI   &kp SQT
+    &none      &kp Z   &kp X   &kp C   &kp V   &kp B   &lt FN_L BSPC  &th_liftl LCTRL DOWN    &th_liftr RCTRL PG_DN  &lt FN_L DEL  &kp N   &kp M   &kp COMMA  &kp DOT  &kp FSLH   &none
             >;
         };
 
@@ -52,10 +101,37 @@
             >;
         };
 
+        mod_lift_layer_left {
+            bindings = <
+    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LGUI                &th_liftr RGUI PG_UP   &trans        &trans  &trans  &trans     &trans   &trans     &trans
+    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LALT                &th_liftr RALT HOME    &trans        &trans  &trans  &trans     &trans   &trans     &trans
+    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LSHFT               &th_liftr RSHFT END    &trans        &trans  &trans  &trans     &trans   &trans     &trans
+    &none      &trans  &trans  &trans  &trans  &trans  &trans         &kp LCTRL               &th_liftr RCTRL PG_DN  &trans        &trans  &trans  &trans     &trans   &trans     &none
+            >;
+        };
+
+        mod_lift_layer_right {
+            bindings = <
+    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &th_liftl LGUI UP       &kp RGUI               &trans        &trans  &trans  &trans     &trans   &trans     &trans
+    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &th_liftl LALT RIGHT    &kp RALT               &trans        &trans  &trans  &trans     &trans   &trans     &trans
+    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &th_liftl LSHFT LEFT    &kp RSHFT              &trans        &trans  &trans  &trans     &trans   &trans     &trans
+    &none      &trans  &trans  &trans  &trans  &trans  &trans         &th_liftl LCTRL DOWN    &kp RCTRL              &trans        &trans  &trans  &trans     &trans   &trans     &none
+            >;
+        };
+
+        mod_lift_layer_both {
+            bindings = <
+    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LGUI                &kp RGUI               &trans        &trans  &trans  &trans     &trans   &trans     &trans
+    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LALT                &kp RALT               &trans        &trans  &trans  &trans     &trans   &trans     &trans
+    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LSHFT               &kp RSHFT              &trans        &trans  &trans  &trans     &trans   &trans     &trans
+    &none      &trans  &trans  &trans  &trans  &trans  &trans         &kp LCTRL               &kp RCTRL              &trans        &trans  &trans  &trans     &trans   &trans     &none
+            >;
+        };
+
         hw_layer {
             bindings = <
     &bootloader  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &trans  &trans  &bt BT_CLR    &trans    &trans  &bt BT_CLR    &trans  &trans  &trans  &trans  &trans  &bootloader
-    &reset       &trans        &trans        &trans        &trans  &trans  &out OUT_TOG  &trans    &trans  &out OUT_TOG  &trans  &trans  &trans  &trans  &trans  &reset
+    &sys_reset   &trans        &trans        &trans        &trans  &trans  &out OUT_TOG  &trans    &trans  &out OUT_TOG  &trans  &trans  &trans  &trans  &trans  &sys_reset
     &kp ESC      &trans        &trans        &trans        &trans  &trans  &trans        &trans    &trans  &trans        &trans  &trans  &trans  &trans  &trans  &none
     &none        &trans        &trans        &trans        &trans  &trans  &trans        &trans    &trans  &trans        &trans  &trans  &trans  &trans  &trans  &trans
             >;
