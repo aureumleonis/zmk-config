@@ -10,6 +10,15 @@
 #define MOD_LAYER_B 4
 #define HW_L 5
 
+#define NAV_R_UP_H RGUI
+#define NAV_R_UP_T PG_UP
+#define NAV_R_DN_H RCTRL
+#define NAV_R_DN_T PG_DN
+#define NAV_R_LE_H RALT
+#define NAV_R_LE_T HOME
+#define NAV_R_RI_H RSHFT
+#define NAV_R_RI_T END
+
 
 &lt {
     tapping_term_ms = <150>;
@@ -85,55 +94,55 @@
 
         default_layer {
             bindings = <
-    &kp GRAVE  &kp N1  &kp N2  &kp N3  &kp N4  &kp N5  &kp ENTER      &th_liftl LGUI UP       &th_liftr RGUI PG_UP   &kp N6        &kp N7  &kp N8  &kp N9     &kp N0   &kp MINUS  &kp EQUAL
-    &kp TAB    &kp Q   &kp W   &kp E   &kp R   &kp T   &kp LBKT       &th_liftl LALT RIGHT    &th_liftr RALT HOME    &kp RBKT      &kp Y   &kp U   &kp I      &kp O    &kp P      &kp BSLH
-    &kp ESC    &kp A   &kp S   &kp D   &kp F   &kp G   &kp SPACE      &th_liftl LSHFT LEFT    &th_liftr RSHFT END    &kp SPACE     &kp H   &kp J   &kp K      &kp L    &kp SEMI   &kp SQT
-    &none      &kp Z   &kp X   &kp C   &kp V   &kp B   &lt FN_L BSPC  &th_liftl LCTRL DOWN    &th_liftr RCTRL PG_DN  &lt FN_L DEL  &kp N   &kp M   &kp COMMA  &kp DOT  &kp FSLH   &none
+    &none      &kp N1  &kp N2  &kp N3  &kp N4  &kp N5  &kp ENTER      &th_liftl LSHFT LEFT    &th_liftr NAV_R_DN_H NAV_R_DN_T   &kp N6        &kp N7  &kp N8  &kp N9     &kp N0   &kp MINUS  &none
+    &kp GRAVE  &kp Q   &kp W   &kp E   &kp R   &kp T   &kp LBKT       &th_liftl LALT RIGHT    &th_liftr NAV_R_LE_H NAV_R_LE_T   &kp RBKT      &kp Y   &kp U   &kp I      &kp O    &kp P      &kp EQUAL
+    &kp TAB    &kp A   &kp S   &kp D   &kp F   &kp G   &kp SPACE      &th_liftl LGUI UP       &th_liftr NAV_R_UP_H NAV_R_UP_T   &kp SPACE     &kp H   &kp J   &kp K      &kp L    &kp SEMI   &kp BSLH
+    &kp ESC    &kp Z   &kp X   &kp C   &kp V   &kp B   &lt FN_L BSPC  &th_liftl LCTRL DOWN    &th_liftr NAV_R_RI_H NAV_R_RI_T   &lt FN_L DEL  &kp N   &kp M   &kp COMMA  &kp DOT  &kp FSLH   &kp SQT
             >;
         };
 
         fn_layer {
             bindings = <
-    &none      &kp F1      &kp F2    &kp F3      &kp F4      &kp F5      &kp INS   &trans    &trans  &kp F6    &kp F7     &kp F8    &kp F9     &kp F10  &kp F11   &kp F12
-    &none      &none       &none     &none       &none       &none       &trans    &trans    &trans  &trans    &none      &none     &kp PG_UP  &none    &none     &none
-    &kp ENTER  &kp C_PREV  &kp C_PP  &kp C_STOP  &kp C_NEXT  &none       &mo HW_L  &trans    &trans  &mo HW_L  &none      &kp HOME  &kp PG_DN  &kp END  &none     &trans
-    &none      &none       &none     &none       &none       &kp K_APP   &none     &trans    &trans  &trans    &kp K_APP  &none     &none      &none    &none     &none
+    &none      &kp F1      &kp F2    &kp F3      &kp F4      &kp F5      &kp INS   &trans    &trans  &kp F6    &kp F7     &kp F8    &kp F9     &kp F10  &kp F11   &none
+    &none      &none       &none     &none       &none       &none       &trans    &trans    &trans  &trans    &none      &none     &kp PG_UP  &none    &none     &kp F12
+    &none      &kp C_PREV  &kp C_PP  &kp C_STOP  &kp C_NEXT  &none       &mo HW_L  &trans    &trans  &mo HW_L  &none      &kp HOME  &kp PG_DN  &kp END  &none     &none
+    &kp ENTER  &none       &none     &none       &none       &kp K_APP   &none     &trans    &trans  &trans    &kp K_APP  &none     &none      &none    &none     &none
             >;
         };
 
         mod_lift_layer_left {
             bindings = <
-    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LGUI                &th_liftr RGUI PG_UP   &trans        &trans  &trans  &trans     &trans   &trans     &trans
-    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LALT                &th_liftr RALT HOME    &trans        &trans  &trans  &trans     &trans   &trans     &trans
-    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LSHFT               &th_liftr RSHFT END    &trans        &trans  &trans  &trans     &trans   &trans     &trans
-    &none      &trans  &trans  &trans  &trans  &trans  &trans         &kp LCTRL               &th_liftr RCTRL PG_DN  &trans        &trans  &trans  &trans     &trans   &trans     &none
+    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LSHFT               &th_liftr NAV_R_DN_H NAV_R_DN_T  &trans        &trans  &trans  &trans     &trans   &trans     &trans
+    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LALT                &th_liftr NAV_R_LE_H NAV_R_LE_T  &trans        &trans  &trans  &trans     &trans   &trans     &trans
+    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LGUI                &th_liftr NAV_R_UP_H NAV_R_UP_T  &trans        &trans  &trans  &trans     &trans   &trans     &trans
+    &trans      &trans  &trans  &trans  &trans  &trans  &trans         &kp LCTRL               &th_liftr NAV_R_RI_H NAV_R_RI_T  &trans        &trans  &trans  &trans     &trans   &trans     &trans
             >;
         };
 
         mod_lift_layer_right {
             bindings = <
-    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &th_liftl LGUI UP       &kp RGUI               &trans        &trans  &trans  &trans     &trans   &trans     &trans
-    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &th_liftl LALT RIGHT    &kp RALT               &trans        &trans  &trans  &trans     &trans   &trans     &trans
-    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &th_liftl LSHFT LEFT    &kp RSHFT              &trans        &trans  &trans  &trans     &trans   &trans     &trans
-    &none      &trans  &trans  &trans  &trans  &trans  &trans         &th_liftl LCTRL DOWN    &kp RCTRL              &trans        &trans  &trans  &trans     &trans   &trans     &none
+    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &th_liftl LSHFT LEFT    &kp NAV_R_DN_H  &trans        &trans  &trans  &trans     &trans   &trans     &trans
+    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &th_liftl LALT RIGHT    &kp NAV_R_LE_H  &trans        &trans  &trans  &trans     &trans   &trans     &trans
+    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &th_liftl LGUI UP       &kp NAV_R_UP_H  &trans        &trans  &trans  &trans     &trans   &trans     &trans
+    &trans      &trans  &trans  &trans  &trans  &trans  &trans         &th_liftl LCTRL DOWN    &kp NAV_R_RI_H  &trans        &trans  &trans  &trans     &trans   &trans     &trans
             >;
         };
 
         mod_lift_layer_both {
             bindings = <
-    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LGUI                &kp RGUI               &trans        &trans  &trans  &trans     &trans   &trans     &trans
-    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LALT                &kp RALT               &trans        &trans  &trans  &trans     &trans   &trans     &trans
-    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LSHFT               &kp RSHFT              &trans        &trans  &trans  &trans     &trans   &trans     &trans
-    &none      &trans  &trans  &trans  &trans  &trans  &trans         &kp LCTRL               &kp RCTRL              &trans        &trans  &trans  &trans     &trans   &trans     &none
+    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LSHFT               &kp NAV_R_DN_H  &trans        &trans  &trans  &trans     &trans   &trans     &trans
+    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LALT                &kp NAV_R_LE_H  &trans        &trans  &trans  &trans     &trans   &trans     &trans
+    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LGUI                &kp NAV_R_UP_H  &trans        &trans  &trans  &trans     &trans   &trans     &trans
+    &trans      &trans  &trans  &trans  &trans  &trans  &trans         &kp LCTRL               &kp NAV_R_RI_H  &trans        &trans  &trans  &trans     &trans   &trans     &trans
             >;
         };
 
         hw_layer {
             bindings = <
-    &bootloader  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &trans  &trans  &bt BT_CLR    &trans    &trans  &bt BT_CLR    &trans  &trans  &trans  &trans  &trans  &bootloader
-    &sys_reset   &trans        &trans        &trans        &trans  &trans  &out OUT_TOG  &trans    &trans  &out OUT_TOG  &trans  &trans  &trans  &trans  &trans  &sys_reset
-    &kp ESC      &trans        &trans        &trans        &trans  &trans  &trans        &trans    &trans  &trans        &trans  &trans  &trans  &trans  &trans  &none
-    &none        &trans        &trans        &trans        &trans  &trans  &trans        &trans    &trans  &trans        &trans  &trans  &trans  &trans  &trans  &trans
+    &none        &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &trans  &trans  &bt BT_CLR    &trans    &trans  &bt BT_CLR    &trans  &trans  &trans  &trans  &trans  &none
+    &bootloader  &trans        &trans        &trans        &trans  &trans  &out OUT_TOG  &trans    &trans  &out OUT_TOG  &trans  &trans  &trans  &trans  &trans  &bootloader
+    &sys_reset   &trans        &trans        &trans        &trans  &trans  &trans        &trans    &trans  &trans        &trans  &trans  &trans  &trans  &trans  &sys_reset
+    &kp ESC      &trans        &trans        &trans        &trans  &trans  &trans        &trans    &trans  &trans        &trans  &trans  &trans  &trans  &trans  &trans
             >;
         };
     };
