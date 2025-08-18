@@ -1,7 +1,13 @@
+#include <input/processors.dtsi>
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
+
+#define HAS_MOUSE_TP
+
+#include <dt-bindings/zmk/mouse.h>
+#include <behaviors/mouse_keys.dtsi>
 
 #define DEFAULT_LAYER 0
 #define FN_L 1
@@ -9,6 +15,9 @@
 #define MOD_LAYER_R 3
 #define MOD_LAYER_B 4
 #define HW_L 5
+#define MOUSE_TP 6
+
+#include "mouse.dtsi"
 
 #define NAV_R_UP_H RGUI
 #define NAV_R_UP_T PG_UP
@@ -145,5 +154,15 @@
     &kp ESC      &trans        &trans        &trans        &trans  &trans  &trans        &trans    &trans  &trans        &trans  &trans  &trans  &trans  &trans  &trans
             >;
         };
+
+        mouse_layer {
+            bindings = <
+    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LSHFT               &mkp MCLK  &trans        &trans  &trans  &trans     &trans   &trans     &trans
+    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LALT                &mkp LCLK  &trans        &trans  &trans  &trans     &trans   &trans     &trans
+    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LGUI                &trans     &trans        &trans  &trans  &trans     &trans   &trans     &trans
+    &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LCTRL               &mkp RCLK  &trans        &trans  &trans  &trans     &trans   &trans     &trans
+            >;
+        };
+
     };
 };
