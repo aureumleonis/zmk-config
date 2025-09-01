@@ -6,8 +6,10 @@
 
 #define HAS_MOUSE_TP
 
-#include <dt-bindings/zmk/mouse.h>
-#include <behaviors/mouse_keys.dtsi>
+#ifdef HAS_MOUSE_TP
+    #include <dt-bindings/zmk/mouse.h>
+    #include <behaviors/mouse_keys.dtsi>
+#endif
 
 #define DEFAULT_LAYER 0
 #define FN_L 1
@@ -17,7 +19,9 @@
 #define HW_L 5
 #define MOUSE_TP 6
 
-#include "mouse.dtsi"
+#ifdef HAS_MOUSE_TP
+    #include "mouse.dtsi"
+#endif
 
 #define NAV_R_UP_H RGUI
 #define NAV_R_UP_T PG_UP
@@ -148,13 +152,14 @@
 
         hw_layer {
             bindings = <
-    &none        &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &trans  &trans  &bt BT_CLR    &trans    &trans  &bt BT_CLR    &trans  &trans  &trans  &trans  &trans  &none
-    &bootloader  &trans        &trans        &trans        &trans  &trans  &out OUT_TOG  &trans    &trans  &out OUT_TOG  &trans  &trans  &trans  &trans  &trans  &bootloader
-    &sys_reset   &trans        &trans        &trans        &trans  &trans  &trans        &trans    &trans  &trans        &trans  &trans  &trans  &trans  &trans  &sys_reset
-    &kp ESC      &trans        &trans        &trans        &trans  &trans  &trans        &trans    &trans  &trans        &trans  &trans  &trans  &trans  &trans  &trans
+    &none        &bt BT_SEL 0   &bt BT_SEL 1  &bt BT_SEL 2  &trans         &trans  &bt BT_CLR    &trans    &trans  &bt BT_CLR    &trans  &trans  &trans  &trans  &trans  &none
+    &bootloader  U_MSS_TP_V6_I  U_MSS_TP_S_I  U_MSS_TP_NI_I U_MSS_TP_PT_I  &trans  &out OUT_TOG  &trans    &trans  &out OUT_TOG  &trans  &trans  &trans  &trans  &trans  &bootloader
+    &sys_reset   U_MSS_TP_V6_D  U_MSS_TP_S_D  U_MSS_TP_NI_D U_MSS_TP_PT_D  &trans  &trans        &trans    &trans  &trans        &trans  &trans  &trans  &trans  &trans  &sys_reset
+    &kp ESC      U_MSS_LOG      U_MSS_RESET   &trans        &trans         &trans  &trans        &trans    &trans  &trans        &trans  &trans  &trans  &trans  &trans  &trans
             >;
         };
 
+#ifdef HAS_MOUSE_TP
         mouse_layer {
             bindings = <
     &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LSHFT               &mkp MCLK  &trans        &trans  &trans  &trans     &trans   &trans     &trans
@@ -163,6 +168,6 @@
     &trans     &trans  &trans  &trans  &trans  &trans  &trans         &kp LCTRL               &mkp RCLK  &trans        &trans  &trans  &trans     &trans   &trans     &trans
             >;
         };
-
+#endif
     };
 };

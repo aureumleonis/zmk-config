@@ -70,9 +70,21 @@
   // (usually the right side)
   #ifdef MOUSE_PS2_DT_PRESENT
 
+  #include <input/processors.dtsi>
+  #include <dt-bindings/zmk/input_transform.h>
+  #include <zephyr/dt-bindings/input/input-event-codes.h>
+
    /*
     * Input Listener Config
     */
+
+    / {
+        delayed_temp_layer: zip_temp_layer {
+            compatible = "zmk,input-processor-temp-layer";
+            #input-processor-cells = <2>;
+            require-prior-idle-ms = <1000>;
+        };
+    };
 
     &mouse_ps2_input_listener {
 
@@ -81,20 +93,21 @@
       // trackpoints also allow you to adjust it in their firmware. Check
       // the driver options below for more info.
       // xy-swap;
-      // x-invert;
+      //x-invert;
       // y-invert;
+      input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT)>, <&delayed_temp_layer MOUSE_TP 500>;
 
       // Set the layer that should automatically activate when the mouse is
       // moving.
-      layer-toggle = <MOUSE_TP>;
+      //layer-toggle = <MOUSE_TP>;
 
       // How long the mouse needs to move for before the layer is activated (to
       // avoid accidental activations while typing) (Default: 250)
-      layer-toggle-delay-ms = <250>;
+      //layer-toggle-delay-ms = <250>;
 
       // How long to wait, after the last mouse movement, before deactivating
       // the layer (Default: 250)
-      layer-toggle-timeout-ms = <250>;
+      //layer-toggle-timeout-ms = <250>;
     };
 
 
@@ -120,8 +133,8 @@
 
       // Enable clicking by tapping on the TP.
       // Not all TPs support this.
-      // tp-press-to-select;
-      // tp-press-to-select-threshold = <10>;
+      tp-press-to-select;
+      tp-press-to-select-threshold = <10>;
 
 
       // Adjust axis settings on the TP

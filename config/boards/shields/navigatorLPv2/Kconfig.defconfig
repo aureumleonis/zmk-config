@@ -9,5 +9,14 @@ if SHIELD_NAVIGATORLPV2_RIGHT
 
 config ZMK_KEYBOARD_NAME
   default "navigatorLP2r"
+config ZMK_SPLIT_ROLE_CENTRAL
+    default y
+
+endif
+
+if SHIELD_NAVIGATORLPV2_LEFT || SHIELD_NAVIGATORLPV2_RIGHT
+
+config ZMK_SPLIT
+    default y
 
 endif
