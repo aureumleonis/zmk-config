@@ -1,0 +1,22 @@
+if SHIELD_NAVIGATORLPV4_LEFT
+
+config ZMK_KEYBOARD_NAME
+  default "navigatorLP4l"
+config ZMK_SPLIT_ROLE_CENTRAL
+    default y
+
+endif
+
+if SHIELD_NAVIGATORLPV4_RIGHT
+
+config ZMK_KEYBOARD_NAME
+  default "navigatorLP4"
+
+endif
+
+if SHIELD_NAVIGATORLPV4_LEFT || SHIELD_NAVIGATORLPV4_RIGHT
+
+config ZMK_SPLIT
+    default y
+
+endif
