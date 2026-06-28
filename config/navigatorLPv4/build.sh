@@ -18,7 +18,9 @@ mouse=''
 
 mouse_module=
 #mouse_module="$HOME/tools/kb_zmk_ps2_mouse_trackpoint_driver_mads"
-all_extra_modules="${moduledir};${mouse_module}"
+dongle_module="$HOME/tools/zmk-dongle-display-view"
+# dongle_module=
+all_extra_modules="${moduledir};${dongle_module}"
 
 set -e
 
@@ -28,7 +30,7 @@ west build -p -d "$moduledir/build/${side}_v4" \
   $logging \
   -- \
   $mouse \
-  -DSHIELD="navigatorLPv4_$side nice_view_adapter nice_view" \
+  -DSHIELD="navigatorLPv4_$side nice_view_adapter dongle_display_view_pro_micro" \
   -DZMK_EXTRA_MODULES="$all_extra_modules" \
   -DZMK_CONFIG="$configdir" \
   -DKCONFIG_WARN_AS_ERROR=n
